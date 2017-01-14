@@ -1,0 +1,4 @@
+--ui bdd
+--reporters spec
+--timeout 3000
+--es_staging
