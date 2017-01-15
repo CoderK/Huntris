@@ -18,7 +18,8 @@ class AbstractPoint {
         /* eslint no-unused-vars: 0 */
     }
 
-    shouldBlockRotate(blockTable, x, y, relPoints) {
+    shouldCancelRotate(blockTable, relPoints) {
+        const { x, y } = this;
         return relPoints.some(
             relPt => hasObstacle(blockTable, x, y, relPt)
         );

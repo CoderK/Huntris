@@ -11,13 +11,13 @@ class ToggleRelPoint extends AbstractRelPoint {
     }
 
     rotate(blockTable) {
-        const rotatedRelPoints = this._rotateRelPoints();
+        const nextRelPoints = this._rotateRelPoints();
 
-        if (this.shouldBlockRotate(blockTable, this.x, this.y, rotatedRelPoints)) {
+        if (this.shouldCancelRotate(blockTable, nextRelPoints)) {
             return;
         }
 
-        this.relPoints = rotatedRelPoints;
+        this.relPoints = nextRelPoints;
         this._toggleDirect();
     }
 

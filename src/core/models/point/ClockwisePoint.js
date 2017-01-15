@@ -2,12 +2,12 @@ import AbstractPoint from './AbstractPoint';
 
 class ClockwisePoint extends AbstractPoint {
     rotate(blockTable) {
-        const rotatedRelPoints = this.rotateClockwise();
-        if (this.shouldBlockRotate(blockTable, this.x, this.y, rotatedRelPoints)) {
+        const nextRelPoints = this.rotateClockwise();
+        if (this.shouldCancelRotate(blockTable, nextRelPoints)) {
             return;
         }
 
-        this.relPoints = rotatedRelPoints;
+        this.relPoints = nextRelPoints;
     }
 }
 
