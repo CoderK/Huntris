@@ -1,14 +1,15 @@
 @CHARSET "utf-8";
 
-.canvas-wrapper {
-	margin: 0 auto;  display: block;  width: 100%;  height: auto; overflow: hidden; 
+html, body {
+    height: 100%;
+    width: 100%;
+    display: block;
+    margin: 0px;
+    padding: 0px;
 }
 
-.canvas-wrapper canvas {
-	margin: 0 auto; display: block;
+canvas {
+    display: block;
+    transform: translateY(50%);
+    margin: 0 auto;
 }
-
-.canvas-wrapper table {
-	display: block; position: relative; left: 80%;
-}
-
