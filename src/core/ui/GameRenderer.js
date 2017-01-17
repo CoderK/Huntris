@@ -5,7 +5,7 @@ class GameRenderer {
     constructor(props) {
         this._boardPanelView = new BoardPanelView({
             board: props.board,
-            scorer: props.scorer,
+            scoreboard: props.scoreboard,
             canvas: props.boardCanvas,
             config: {
                 unitSize: props.unitSize,

@@ -3,7 +3,7 @@ import '../resources/css/style.css';
 import { DEFAULT_GAME_SPEED, INTERVAL_UNIT } from './config';
 import Board from './core/models/Board';
 import GameRenderer from './core/ui/GameRenderer';
-import Scorer from './core/models/Scorer';
+import Scoreboard from './core/models/Scoreboard';
 
 class App {
     constructor(props) {
@@ -19,7 +19,7 @@ class App {
                 rows: Math.floor(height / unitSize),
                 cols: Math.floor(width / unitSize),
             }),
-            scorer: new Scorer({
+            scoreboard: new Scoreboard({
                 animateInterval: DEFAULT_GAME_SPEED,
                 intervalUnit: INTERVAL_UNIT,
             }),

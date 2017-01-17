@@ -4,7 +4,7 @@ class BoardPanelView {
 
     constructor(props = { config: {} }) {
         this._board = props.board;
-        this._scorer = props.scorer;
+        this._scoreboard = props.scoreboard;
 
         this._unitSize = props.config.unitSize || 20;
         this._width = props.config.width || 340;
@@ -78,18 +78,17 @@ class BoardPanelView {
 
     _speedUp() {
         this._stop();
-        this._scorer.speedUp();
         this._play();
     }
 
     _addScore(lineCnt) {
-        this._scorer.addScore(lineCnt);
+        this._scoreboard.addScoreByRowCount(lineCnt);
     }
 
     _play() {
         this._timerForDrop = setInterval(
             this._tick.bind(this),
-            this._scorer.animateInterval,
+            700,
         );
     }
 
