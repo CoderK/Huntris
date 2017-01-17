@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import blockScheme from '../../scheme/block-scheme';
 import Block from '../Block';
 import { I, L, S, O, J, Z, T } from '../../../consts/block-type';
-import { rotateClockwise } from '../point/helper/position-rotator';
+import { rotateClockwise } from '../point/helper/point-rotator';
 
 chai.should();
 
@@ -505,8 +505,7 @@ describe('Block', () => {
                 block.right(blockedBoard);
 
                 // then
-                const currentPoint = block.point;
-                const { x, y } = currentPoint;
+                const { x, y } = block.point;
                 x.should.be.eql(originX);
                 y.should.be.eql(originY);
             });

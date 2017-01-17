@@ -1,8 +1,5 @@
-import {
-    hasObstacle,
-    rotateClockwise,
-    rotateCounterClockwise
-} from './helper/position-rotator';
+import { rotateClockwise, rotateCounterClockwise } from './helper/point-rotator';
+import { hasObstacle } from './helper/point-refree';
 
 class AbstractPoint {
     constructor(x, y, relPoints) {

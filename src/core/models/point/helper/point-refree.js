@@ -1,10 +1,3 @@
-function movePoint(points, deltaX, deltaY) {
-    return points.map(point => ({
-        x: point.y * deltaX === -0 ? 0 : point.y * deltaX,
-        y: point.x * deltaY === -0 ? 0 : point.x * deltaY
-    }));
-}
-
 function isCrossSideBorder(currentY, rows) {
     return currentY < 0 || currentY > rows - 1;
 }
@@ -34,16 +27,6 @@ export function hasObstacle(blockTables, x, y, relPt) {
         || hasBlock(blockTables, realX, realY);
 }
 
-export function rotateClockwise(points) {
-    return movePoint(points, -1, 1);
-}
-
-export function rotateCounterClockwise(points) {
-    return movePoint(points, 1, -1);
-}
-
 export default {
-    rotateClockwise,
-    rotateCounterClockwise,
     hasObstacle
 };
