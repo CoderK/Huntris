@@ -16,8 +16,8 @@ class App {
 
         this._gameRenderer = new GameRenderer({
             board: new Board({
-                rows: Math.floor(height / unitSize),
-                cols: Math.floor(width / unitSize),
+                rowCount: Math.floor(height / unitSize),
+                colCount: Math.floor(width / unitSize),
             }),
             scoreboard: new Scoreboard({
                 animateInterval: DEFAULT_GAME_SPEED,

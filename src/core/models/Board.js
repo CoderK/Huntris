@@ -1,50 +1,30 @@
 import EventEmitter from 'eventemitter3';
-import Block from './Block';
 
 class Board extends EventEmitter {
     constructor(props = {}) {
         super();
 
-        this._topMargin = 3;
-        this._rows = props.rows || 5;
-        this._cols = props.cols || 5;
-        this._currentBlock = null;
-        this._nextBlock = Block.createRandomBlock();
-        this._blockTable = [];
+        this.rowCount = props.rowCount;
+        this.colCount = props.colCount;
+        this.blockTable = [];
+        this.currentBlock = null;
 
-        this.resetTables();
-        this.putNextBlock();
+        this.clear();
     }
 
-    putNextBlock() {
-        this._dequeue();
-        this._moveToEntryPoint(this.currentBlock);
+    clear() {
+        const blockTable = new Array(this.rowCount);
 
-        this.emit('changedCurrentBlock', this.nextBlock);
+        for (let y = 0; y < blockTable.length; y++) {
+            blockTable[y] = this._generateEmptyRow();
+        }
+
+        this.blockTable = blockTable;
     }
 
-    _dequeue() {
-        this.currentBlock = this.nextBlock;
-        this.nextBlock = Block.createRandomBlock();
-    }
-
-    _moveToEntryPoint(block) {
-        const entry = this._calculateEntryPoint(block);
-        block.moveTo(entry);
-    }
-
-    _calculateEntryPoint(block) {
-        return {
-            x: Math.floor(this._cols / 2) + block.point.x,
-            y: this._topMargin,
-        };
-    }
-
-    fixBlockToTable(block) {
+    putBlock(block) {
         this._addBlockToTable(block);
-
-        const fullLines = this._findFullLines();
-        this._removeLines(fullLines);
+        this._removeRows(this._findFullRowIndexes());
     }
 
     _addBlockToTable(block) {
@@ -57,78 +37,24 @@ class Board extends EventEmitter {
         });
     }
 
-    moveLeft() {
-        this.currentBlock.left(this.blockTable);
-    }
-
-    rotateBlock() {
-        this.currentBlock.rotate(this.blockTable);
-    }
-
-    moveRight() {
-        this.currentBlock.right(this.blockTable);
-    }
-
-    moveDown() {
-        this.currentBlock.down(this.blockTable);
-    }
-
-    dropBlock() {
-        this.currentBlock.drop(this.blockTable);
-        this.next();
-    }
-
-    next() {
-        const curBlock = this.currentBlock;
-        const isMoved = curBlock.down(this.blockTable);
-
-        if (isMoved === false) {
-            this.fixBlockToTable(curBlock);
-            this.putNextBlock();
-        }
-
-        return this._isAlive();
-    }
-
-    _isAlive() {
-        return this._hasBlock(this.currentBlock) === false;
-    }
-
-    _hasBlock(block) {
-        const { x, y } = block.point;
-        return this.blockTable[y][x];
-    }
-
-    resetTables() {
-        const blockTable = Array(...{ length: this._rows }).map(() => false);
-
-        for (let y = 0; y < this._rows; y++) {
-            blockTable[y] = Array(...{ length: this._cols }).map(() => false);
-        }
-
-        this.blockTable = blockTable;
-    }
-
-    _findFullLines() {
-        const fullLineIndexes = [];
-
-        this.blockTable.forEach((row, i) => {
-            const columnsWithBlock = row.filter(column => column !== false);
-            const isFull = columnsWithBlock.length === row.length;
-
-            if (isFull) {
-                fullLineIndexes.push(i);
-            }
-        });
-
-        return fullLineIndexes;
-    }
-
-    _removeLines(fullLineIndexes) {
+    _removeRows(fullLineIndexes) {
         fullLineIndexes.forEach((targetIndex) => {
             this._clearRow(targetIndex);
             this._pullBlocksDown(targetIndex);
         });
+    }
+
+    _findFullRowIndexes() {
+        return this.blockTable.reduce((acc, row, index) => {
+            const columnsWithBlock = row.filter(column => column !== false);
+            const isFull = columnsWithBlock.length === row.length;
+
+            if (isFull) {
+                acc.push(index);
+            }
+
+            return acc;
+        }, []);
     }
 
     _clearRow(targetIndex) {
@@ -136,7 +62,7 @@ class Board extends EventEmitter {
     }
 
     _generateEmptyRow() {
-        return Array(...Array(this._cols)).map(() => false);
+        return [...Array(this.colCount)].map(() => false);
     }
 
     _pullBlocksDown(targetRow) {
@@ -149,30 +75,6 @@ class Board extends EventEmitter {
                 blockTables[i][j] = false;
             });
         }
-    }
-
-    get nextBlock() {
-        return this._nextBlock;
-    }
-
-    set nextBlock(block) {
-        this._nextBlock = block;
-    }
-
-    get currentBlock() {
-        return this._currentBlock;
-    }
-
-    set currentBlock(block) {
-        this._currentBlock = block;
-    }
-
-    get blockTable() {
-        return this._blockTable;
-    }
-
-    set blockTable(blockTable) {
-        this._blockTable = blockTable;
     }
 }
 

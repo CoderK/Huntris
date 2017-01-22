@@ -4,7 +4,7 @@ import Scoreboard from '../Scoreboard';
 
 chai.should();
 
-describe('Scoreboard', () => {
+describe('Scoreboard >', () => {
     let sandboxSinon;
 
     beforeEach(() => {
@@ -15,7 +15,7 @@ describe('Scoreboard', () => {
         sandboxSinon.restore();
     });
 
-    describe('점수판에 점수를 추가할 수 있다.', () => {
+    describe('점수 누적 >', () => {
         it('점수판에 점수를 누적시킬 수 있다.', () => {
             // given
             const scoreBoard = new Scoreboard();
@@ -56,7 +56,7 @@ describe('Scoreboard', () => {
         });
     });
 
-    describe('레벨 판단', () => {
+    describe('레벨 판단 >', () => {
         it('누적 점수가 1000점을 넘을 때마다 레벨을 하나 올릴 수 있다.', () => {
             // given
             const scoreBoard = new Scoreboard({
@@ -109,7 +109,7 @@ describe('Scoreboard', () => {
         });
     });
 
-    describe('점수판 초기화', () => {
+    describe('점수판 초기화 >', () => {
         it('점수와 레벨을 초기화할 수 있다.', () => {
             // given
             const scoreBoard = new Scoreboard();
