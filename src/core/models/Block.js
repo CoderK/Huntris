@@ -1,7 +1,8 @@
+import EventEmitter from 'eventemitter3';
 import PointFactory from './point/PointFactory';
 import blockScheme from '../scheme/block-scheme';
 
-class Block {
+class Block extends EventEmitter {
     static createBlock(typeNumber) {
         const blockCode = Object.keys(blockScheme)[typeNumber];
         const props = Object.assign({}, blockScheme[blockCode]);
@@ -14,6 +15,7 @@ class Block {
     }
 
     constructor(props = {}) {
+        super();
         this.props = props;
         this.type = props.type;
         this.color = props.color;

@@ -38,6 +38,12 @@ npm start
 
 ## Test
 
+You must install the node-test package before running the test.
+
+```sh
+https://www.npmjs.com/package/canvas
+```
+
 Run all unit tests once:
 
 ```sh

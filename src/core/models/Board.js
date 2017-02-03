@@ -7,7 +7,6 @@ class Board extends EventEmitter {
         this.rowCount = props.rowCount;
         this.colCount = props.colCount;
         this.blockTable = [];
-        this.currentBlock = null;
 
         this.clear();
     }
@@ -20,11 +19,13 @@ class Board extends EventEmitter {
         }
 
         this.blockTable = blockTable;
+        this.emit('onChanged');
     }
 
     putBlock(block) {
         this._addBlockToTable(block);
         this._removeRows(this._findFullRowIndexes());
+        this.emit('onChanged');
     }
 
     _addBlockToTable(block) {

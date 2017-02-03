@@ -19,7 +19,7 @@ module.exports = {
     rules: {
         "indent": ["error", 4],
         "comma-dangle": 0,
-        "no-underscore-dangle": ["error", {"allowAfterThis": true}],
+        "no-underscore-dangle": 0,
         "no-alert": 0,
         "no-debugger": 0,
         "no-constant-condition": 0,
