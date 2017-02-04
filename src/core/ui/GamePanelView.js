@@ -1,6 +1,9 @@
 import autobind from 'autobind-decorator';
+
 import Block from '../models/Block';
 import Board from '../models/Board';
+import MessageBoxView from './MessageBoxView';
+
 import { SPACE, LEFT, UP, RIGHT, DOWN, PERIOD } from '../../consts/keycode';
 
 class GamePanelView {
@@ -13,6 +16,7 @@ class GamePanelView {
         this._attachBlockListener(controlBlock);
 
         this.controlBlock = controlBlock;
+        this.messageBoxView = this._createMessageBoxView();
     }
 
     play() {
@@ -35,7 +39,15 @@ class GamePanelView {
             rowCount: props.rowCount,
             colCount: props.colCount
         });
-        this.controlBlock = null;
+        this.messageBoxView;
+        this.controlBlock;
+    }
+
+    _createMessageBoxView() {
+        const messageBoxView = new MessageBoxView();
+        messageBoxView.appendTo(this.canvas.parentNode || document.body);
+
+        return messageBoxView;
     }
 
     _attachKeyHandler() {
@@ -103,30 +115,46 @@ class GamePanelView {
         return newBlock;
     }
 
+    _canKeepPlaying() {
+        return this.board.isNonadditive(this.controlBlock);
+    }
+
     _startTick() {
         this._timerForPlay = setInterval(() => {
-            this._dropControlBlockDown();
+            if (this._canKeepPlaying()) {
+                this._terminateTick();
+                this.messageBoxView.showWithMessage('Game Over');
+            } else {
+                this._tick();
+            }
         }, this.tickInterval);
     }
 
-    _decreaseTickInterval() {
+    _terminateTick() {
         clearInterval(this._timerForPlay);
+    }
+
+    _tick() {
+        const wasMoved = this._dropControlBlockDown();
+        if (wasMoved) {
+            return;
+        }
+        this._changeToNextBlock();
+    }
+
+    _decreaseTickInterval() {
         this.tickInterval -= 100;
     }
 
     _speedUp() {
+        this._terminateTick();
         this._decreaseTickInterval();
         this._startTick();
     }
 
     _dropControlBlockDown() {
         const { board, controlBlock } = this;
-        const isMoved = controlBlock.down(board.blockTable);
-
-        if (isMoved) {
-            return;
-        }
-        this._changeToNextBlock();
+        return controlBlock.down(board.blockTable);
     }
 
     @autobind

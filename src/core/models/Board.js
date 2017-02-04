@@ -26,6 +26,16 @@ class Board extends EventEmitter {
         this._removeRows(this._findFullRowIndexes());
     }
 
+    isNonadditive(block) {
+        const blockTable = this.blockTable;
+        const { point } = block;
+        const { relPoints, x, y } = point;
+
+        return relPoints.every(
+            relPt => blockTable[y + relPt.y][x + relPt.x] !== false
+        );
+    }
+
     _addBlockToTable(block) {
         const blockTable = this.blockTable;
         const { point, color } = block;

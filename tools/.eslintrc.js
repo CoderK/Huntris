@@ -25,6 +25,7 @@ module.exports = {
         "no-debugger": 0,
         "no-constant-condition": 0,
         "no-plusplus": 0,
+        "no-param-reassign": 0,
         "no-unused-expressions": 0,
         "quote-props": 0,
         "class-methods-use-this": 0

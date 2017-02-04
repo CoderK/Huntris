@@ -9,7 +9,47 @@ html, body {
 }
 
 canvas {
-    display: block;
-    transform: translateY(50%);
+    z-index: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.message-box {
+    z-index: 0;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%)
+}
+
+.line-1{
+    z-index: 1;
+    position: relative;
+    top: 50%;
+    width: 100%;
     margin: 0 auto;
+    overflow: hidden;
+    transform: translateY(-50%);
+    color: #cacaca;
+    font-weight: bold;
+    font-size: 180%;
+    text-align: center;
+    white-space: nowrap;
+    border-right: 2px solid rgba(255,255,255,.75);
+}
+
+/* Animation */
+.anim-typewriter{
+    animation: typewriter 1s steps(44) 1s 1 normal both,
+    blinkTextCursor 500ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+    from{width: 0%}
+    to{width: 100%}
+}
+@keyframes blinkTextCursor{
+    from{border-right-color: rgba(255,255,255,.75);}
+    to{border-right-color: transparent;}
 }
