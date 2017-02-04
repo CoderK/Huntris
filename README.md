@@ -2,7 +2,7 @@
 
 Tetris developed with Modern JavaScript and HTML5 Canvas. This project consists of the latest JavaScript development environment below:
 
-- es2015 with babel
+- es2015 with babel + decorator legacy
 - webpack + npm
 - mocha + chai
 - eslint with airbnb base
