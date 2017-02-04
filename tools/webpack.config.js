@@ -4,7 +4,7 @@ const packageJson = require('../package.json');
 module.exports = {
     devtool: 'cheap-module-source-map',
     entry: {
-        app: ['./src/app.js']
+        app: ['./src/App.js']
     },
     output: {
         path: path.resolve(__dirname, '../dist'),

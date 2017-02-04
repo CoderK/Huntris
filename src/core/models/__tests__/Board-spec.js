@@ -49,7 +49,7 @@ describe('Board > ', () => {
         isClean.should.be.true;
     }
 
-    describe('보드 생성', () => {
+    describe('보드 생성 >', () => {
         it('14 x 25 크기의 보드를 생성할 수 있다.', () => {
             // given
             rowCount = 14;
@@ -122,7 +122,7 @@ describe('Board > ', () => {
         });
     });
 
-    describe('블럭 추가', () => {
+    describe('블럭 추가 >', () => {
         beforeEach(() => {
             rowCount = 20;
             colCount = 20;
@@ -174,7 +174,7 @@ describe('Board > ', () => {
             board.clear();
         });
 
-        describe('블럭으로 가득 찬 행을 제거할 수 있다.', () => {
+        describe('블럭으로 가득 찬 행이 있다면 >', () => {
             let block;
             let blockTable;
 

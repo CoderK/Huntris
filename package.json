@@ -29,6 +29,7 @@
     "jsdom": "9.9.1",
     "jsdom-global": "2.1.1",
     "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.0-rc.4"
   },
@@ -48,12 +49,22 @@
       "babel-plugin-transform-decorators-legacy"
     ]
   },
+  "nyc": {
+    "exclude": [
+      "**/__tests__/*-spec.js",
+      "build",
+      "dist",
+      "coverage",
+      "tools"
+    ]
+  },
   "scripts": {
     "start": "node ./node_modules/.bin/webpack-dev-server --config ./tools/webpack.config.js --hot --open",
     "build": "node ./node_modules/.bin/webpack --config ./tools/webpack.config.js",
     "lint": "node ./node_modules/.bin/eslint --config ./tools/.eslintrc.js ./src",
-    "tdd": "node ./node_modules/.bin/mocha --watch --inspect --compilers js:babel-core/register ./src/**/*/__tests__/*-spec.js --watch --opts /.tools/mocha.opts  ./src/**/**/*/__tests__",
-    "test": "npm run lint & node ./node_modules/.bin/mocha --compilers js:babel-core/register ./src/**/*/__tests__/*-spec.js --opts /.tools/mocha.opts ./src/**/**/*/__tests__"
+    "tdd": "node ./node_modules/.bin/mocha --watch --inspect --compilers js:babel-core/register ./src/**/__tests__/*-spec.js --watch --opts /.tools/mocha.opts  ./src/**/**/__tests__",
+    "test": "node ./node_modules/.bin/mocha --compilers js:babel-core/register ./src/**/__tests__/*-spec.js --opts /.tools/mocha.opts ./src/**/**/__tests__",
+    "coverage": "node ./node_modules/.bin/nyc --all --reporter=html npm run test"
   },
   "author": "CoderK",
   "license": "ISC"
