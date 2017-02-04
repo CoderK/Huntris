@@ -37,7 +37,7 @@
     "webpack-dev-server": "2.2.0-rc.0"
   },
   "babel": {
-    "sourceMaps": "inilne",
+    "sourceMaps": "inline",
     "presets": [
       "es2015"
     ]
@@ -46,8 +46,8 @@
     "start": "node ./node_modules/.bin/webpack-dev-server --config ./tools/webpack.config.js --hot --open",
     "build": "node ./node_modules/.bin/webpack --config ./tools/webpack.config.js",
     "lint": "node ./node_modules/.bin/eslint --config ./tools/.eslintrc.js ./src",
-    "tdd": "node ./node_modules/.bin/mocha --watch --inspect --compilers js:babel-core/register ./src/**/*/__tests__/*-spec.js --watch --opts /.tools/mocha.opts ./src/**/*/__tests__",
-    "test": "node ./node_modules/.bin/mocha --compilers js:babel-core/register ./src/**/*/__tests__/*-spec.js --opts /.tools/mocha.opts ./src/**/*/__tests__"
+    "tdd": "node ./node_modules/.bin/mocha --watch --inspect --compilers js:babel-core/register ./src/**/*/__tests__/*-spec.js --watch --opts /.tools/mocha.opts  ./src/**/**/*/__tests__",
+    "test": "node ./node_modules/.bin/mocha --compilers js:babel-core/register ./src/**/*/__tests__/*-spec.js --opts /.tools/mocha.opts ./src/**/**/*/__tests__"
   },
   "author": "CoderK",
   "license": "ISC"

@@ -50,6 +50,20 @@ class AbstractPoint {
         return canMove;
     }
 
+    drop(blockTables) {
+        while (true) {
+            const isMoved = this.down(blockTables);
+            if (isMoved === false) {
+                return;
+            }
+        }
+    }
+
+    moveTo({ x, y }) {
+        this.x = x;
+        this.y = y;
+    }
+
     _canMove(predicate) {
         const isNoWay = this.relPoints.some(predicate);
         return isNoWay === false;

@@ -36,12 +36,7 @@ class Block extends EventEmitter {
     }
 
     drop(blockTables) {
-        while (true) {
-            const isMoved = this.down(blockTables);
-            if (isMoved === false) {
-                return;
-            }
-        }
+        this.point.drop(blockTables);
     }
 
     left(blockTables) {
