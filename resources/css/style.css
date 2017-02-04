@@ -24,7 +24,7 @@ canvas {
     transform: translate(-50%, -50%)
 }
 
-.line-1{
+.line-1 {
     z-index: 1;
     position: relative;
     top: 50%;
@@ -41,7 +41,7 @@ canvas {
 }
 
 /* Animation */
-.anim-typewriter{
+.anim-typewriter {
     animation: typewriter 1s steps(44) 1s 1 normal both,
     blinkTextCursor 500ms steps(44) infinite normal;
 }
@@ -50,6 +50,6 @@ canvas {
     to{width: 100%}
 }
 @keyframes blinkTextCursor{
-    from{border-right-color: rgba(255,255,255,.75);}
-    to{border-right-color: transparent;}
+    from{ border-right-color: rgba(255,255,255,.75); }
+    to{ border-right-color: transparent; }
 }
