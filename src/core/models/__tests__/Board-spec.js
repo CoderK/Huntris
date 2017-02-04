@@ -120,32 +120,6 @@ describe('Board > ', () => {
             // then
             assertTrueIfBoardIsEmpty(board);
         });
-
-        it('블럭을 제거한 후에는 onChanged 이벤트를 전파하여야 한다.', () => {
-            // given
-            const spyOnChanged = sandboxSinon.spy();
-            board.on('onChanged', spyOnChanged);
-
-            // when
-            board.clear();
-
-            // then
-            spyOnChanged.calledOnce.should.be.true;
-        });
-
-        it('블럭을 한 번 제거할 때마다 onChanged 이벤트를 한 번 전파해야 한다.', () => {
-            // given
-            const spyOnChanged = sandboxSinon.spy();
-            board.on('onChanged', spyOnChanged);
-
-            // when
-            board.clear();
-            board.clear();
-            board.clear();
-
-            // then
-            spyOnChanged.calledThrice.should.be.true;
-        });
     });
 
     describe('블럭 추가', () => {
@@ -188,35 +162,6 @@ describe('Board > ', () => {
             assertTrueIfBoardHasBlock(board, block1);
             assertTrueIfBoardHasBlock(board, block2);
             assertTrueIfBoardHasBlock(board, block3);
-        });
-
-        it('블럭을 보드에 추가한 후에는 onChanged 이벤트를 전파하여야 한다.', () => {
-            // given
-            const spyOnChanged = sandboxSinon.spy();
-            const block = Block.createBlock(I);
-
-            // when
-            board.on('onChanged', spyOnChanged);
-            board.putBlock(block);
-
-            // then
-            spyOnChanged.calledOnce.should.be.true;
-        });
-
-        it('블럭을 보드에 추가할 때마다 onChanged 이벤트를 전파해야 한다.', () => {
-            // given
-            const spyOnChanged = sandboxSinon.spy();
-            const block = Block.createBlock(I);
-
-            // when
-            board.on('onChanged', spyOnChanged);
-
-            board.putBlock(block);
-            board.putBlock(block);
-            board.putBlock(block);
-
-            // then
-            spyOnChanged.calledThrice.should.be.true;
         });
     });
 
@@ -263,20 +208,6 @@ describe('Board > ', () => {
                 // then
                 block.moveTo({ x: 5, y: 8 });
                 assertTrueIfBoardHasBlock(board, block);
-            });
-
-            it('블럭으로 가득 찬 행을 정리한 후에는 onChanged 이벤트를 전파하여야 한다.', () => {
-                // given
-                const spyOnChanged = sandboxSinon.spy();
-
-                // when
-                board.on('onChanged', spyOnChanged);
-
-                block.moveTo({ x: 5, y: 5 });
-                board.putBlock(block);
-
-                // then
-                spyOnChanged.calledOnce.should.be.true;
             });
         });
     });

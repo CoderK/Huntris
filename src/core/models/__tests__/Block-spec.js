@@ -159,4 +159,80 @@ describe('Block', () => {
             spyRight.calledThrice.should.be.true;
         });
     });
+
+    describe('이벤트 발행 >', () => {
+        let spyListener;
+        let anyBlock;
+
+        beforeEach(() => {
+            const ANY = 0;
+            spyListener = sandboxSinon.spy();
+            anyBlock = Block.createBlock(ANY);
+        });
+
+        it('블럭을 한 행 밑으로 하강시킬 때마다 changed 이벤트를 구독할 수 있다.', () => {
+            // given
+            anyBlock.on('changed', spyListener);
+
+            // when
+            anyBlock.down(emptyBoard);
+            anyBlock.down(emptyBoard);
+            anyBlock.down(emptyBoard);
+
+            // then
+            spyListener.calledThrice.should.be.true;
+        });
+
+        it('블럭을 보드 바닥으로 떨어뜨릴때마다 changed 이벤트를 구독할 수 있다.', () => {
+            // given
+            anyBlock.on('changed', spyListener);
+
+            // when
+            anyBlock.drop(emptyBoard);
+            anyBlock.drop(emptyBoard);
+            anyBlock.drop(emptyBoard);
+
+            // then
+            spyListener.calledThrice.should.be.true;
+        });
+
+        it('블럭을 왼쪽으로 이동시킬때마다 changed 이벤트를 구독할 수 있다.', () => {
+            // given
+            anyBlock.on('changed', spyListener);
+
+            // when
+            anyBlock.left(emptyBoard);
+            anyBlock.left(emptyBoard);
+            anyBlock.left(emptyBoard);
+
+            // then
+            spyListener.calledThrice.should.be.true;
+        });
+
+        it('블럭을 오른쪽으로 이동시킬때마다 changed 이벤트를 구독할 수 있다.', () => {
+            // given
+            anyBlock.on('changed', spyListener);
+
+            // when
+            anyBlock.right(emptyBoard);
+            anyBlock.right(emptyBoard);
+            anyBlock.right(emptyBoard);
+
+            // then
+            spyListener.calledThrice.should.be.true;
+        });
+
+        it('블럭을 회전시킬때마다 changed 이벤트를 구독할 수 있다.', () => {
+            // given
+            anyBlock.on('changed', spyListener);
+
+            // when
+            anyBlock.rotate(emptyBoard);
+            anyBlock.rotate(emptyBoard);
+            anyBlock.rotate(emptyBoard);
+
+            // then
+            spyListener.calledThrice.should.be.true;
+        });
+    });
 });

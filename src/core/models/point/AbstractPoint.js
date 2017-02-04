@@ -32,30 +32,27 @@ class AbstractPoint {
 
     left(blockTables) {
         if (this._canMoveToLeft(blockTables)) {
-            this.x = this.x - 1;
+            this._moveToLeft();
         }
     }
 
     right(blockTables) {
         if (this._canMoveToRight(blockTables)) {
-            this.x = this.x + 1;
+            this._moveToRight();
         }
     }
 
     down(blockTables) {
-        const canMove = this._canMoveToDown(blockTables);
+        const canMove = this._canMoveDown(blockTables);
         if (canMove) {
-            this.y = this.y + 1;
+            this._moveDown();
         }
         return canMove;
     }
 
     drop(blockTables) {
-        while (true) {
-            const isMoved = this.down(blockTables);
-            if (isMoved === false) {
-                return;
-            }
+        while (this._canMoveDown(blockTables)) {
+            this._moveDown();
         }
     }
 
@@ -64,12 +61,24 @@ class AbstractPoint {
         this.y = y;
     }
 
+    _moveToRight() {
+        this.x = this.x + 1;
+    }
+
+    _moveToLeft() {
+        this.x = this.x - 1;
+    }
+
+    _moveDown() {
+        this.y = this.y + 1;
+    }
+
     _canMove(predicate) {
         const isNoWay = this.relPoints.some(predicate);
         return isNoWay === false;
     }
 
-    _canMoveToDown(blockTables) {
+    _canMoveDown(blockTables) {
         const { x, y } = this;
         return this._canMove(
             relPt => hasObstacle(blockTables, x, y + 1, relPt)

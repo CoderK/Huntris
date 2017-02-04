@@ -56,32 +56,6 @@ describe('GamePanelView >', () => {
         });
     });
 
-    describe('모델 상태 동기화 >', () => {
-        it('보드에 새로운 블럭을 추가해서 패널을 다시 렌더링 할 수 있다.', () => {
-            // given
-            const spyRender = sandboxSinon.spy(boardView, '_render');
-            const block = Block.createRandomBlock();
-
-            // when
-            block.moveTo({ x: 5, y: 5 });
-            boardView.board.putBlock(block);
-
-            // then
-            spyRender.calledOnce.should.be.true;
-        });
-
-        it('보드를 청소해서 패널을 다시 렌더링 할 수 있다.', () => {
-            // given
-            const spyRender = sandboxSinon.spy(boardView, '_render');
-
-            // when
-            boardView.board.clear();
-
-            // then
-            spyRender.calledOnce.should.be.true;
-        });
-    });
-
     describe('블럭 하강 >', () => {
         describe('게임을 시작하면 >', () => {
             let clock;
@@ -254,24 +228,19 @@ describe('GamePanelView >', () => {
             spyForPlaying.calledThrice.should.be.true;
         });
 
-        // it('키 입력을 처리한 후에는 즉각 화면을 다시 렌더링해야 한다.', () => {
-        //     // given
-        //     sandboxSinon.spy(boardView, '_render');
-        //
-        //     // when
-        //     boardView._actionByKeyCode(SPACE);
-        //     boardView._actionByKeyCode(LEFT);
-        //     boardView._actionByKeyCode(UP);
-        //     boardView._actionByKeyCode(RIGHT);
-        //     boardView._actionByKeyCode(DOWN);
-        //     boardView._actionByKeyCode(PERIOD);
-        //
-        //     // then
-        //     boardView._render.callCount.should.be.eql(6);
-        // });
-        /**
-         * TODO:
-         * 모델과 UI 간의 리액티브 바인딩
-         */
+        it('제어블럭을 이동시킬 때마다 화면을 다시 렌더링 해야 한다.', () => {
+            // given
+            sandboxSinon.spy(boardView, '_render');
+
+            // when
+            boardView._actionByKeyCode(SPACE);
+            boardView._actionByKeyCode(LEFT);
+            boardView._actionByKeyCode(UP);
+            boardView._actionByKeyCode(RIGHT);
+            boardView._actionByKeyCode(DOWN);
+
+            // then
+            boardView._render.callCount.should.be.eql(5);
+        });
     });
 });

@@ -9,6 +9,11 @@ chai.should();
 describe('AbstractPoint >', () => {
     let sandboxSinon;
     let emptyBoard;
+    let abstractPoint;
+
+    const originX = 4;
+    const originY = 4;
+    const ANY_SCHEME = blockScheme.I.relPoints;
 
     beforeEach(() => {
         sandboxSinon = sinon.sandbox.create();
@@ -27,6 +32,7 @@ describe('AbstractPoint >', () => {
             [false, false, false, false, false, false, false, false, false, false],
             [false, false, false, false, false, false, false, false, false, false]
         ];
+        abstractPoint = new AbstractPoint(originX, originY, ANY_SCHEME);
     });
 
     afterEach(() => {
@@ -34,16 +40,6 @@ describe('AbstractPoint >', () => {
     });
 
     describe('블럭 위치 이동 >', () => {
-        const originX = 4;
-        const originY = 4;
-        const ANY_SCHEME = blockScheme.I.relPoints;
-
-        let abstractPoint;
-
-        beforeEach(() => {
-            abstractPoint = new AbstractPoint(originX, originY, ANY_SCHEME);
-        });
-
         describe('하강 >', () => {
             it('블럭을 한 칸씩 하단으로 이동시킬 수 있다.', () => {
                 // given

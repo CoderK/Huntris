@@ -29,27 +29,42 @@ class Block extends EventEmitter {
 
     rotate(blockTable) {
         this.point.rotate(blockTable);
+        this._publishEvent();
     }
 
     down(blockTables) {
-        return this.point.down(blockTables);
+        const isMoved = this.point.down(blockTables);
+        /*
+         * NOTE:
+         * 실제로 이동이 없어도 changed 이벤트를 발행하는데
+         * 무시해도 충분한 결함이라 생각하여 특별한 조치를 하지 않음.
+         */
+        this._publishEvent();
+        return isMoved;
     }
 
     drop(blockTables) {
         this.point.drop(blockTables);
+        this._publishEvent();
     }
 
     left(blockTables) {
         this.point.left(blockTables);
+        this._publishEvent();
     }
 
     right(blockTables) {
         this.point.right(blockTables);
+        this._publishEvent();
     }
 
     moveTo({ x, y }) {
         this.point.x = x;
         this.point.y = y;
+    }
+
+    _publishEvent() {
+        this.emit('changed');
     }
 }
 

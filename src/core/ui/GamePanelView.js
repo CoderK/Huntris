@@ -1,14 +1,18 @@
-import { SPACE, LEFT, UP, RIGHT, DOWN, PERIOD } from '../../consts/keycode';
-
+import autobind from 'autobind-decorator';
 import Block from '../models/Block';
 import Board from '../models/Board';
+import { SPACE, LEFT, UP, RIGHT, DOWN, PERIOD } from '../../consts/keycode';
 
 class GamePanelView {
 
     constructor(props) {
         this._initProps(props);
-        this._createControlBlock();
-        this._attachEvents();
+        this._attachKeyHandler();
+
+        const controlBlock = this._createControlBlock();
+        this._attachBlockListener(controlBlock);
+
+        this.controlBlock = controlBlock;
     }
 
     play() {
@@ -34,8 +38,7 @@ class GamePanelView {
         this.controlBlock = null;
     }
 
-    _attachEvents() {
-        this.board.on('onChanged', this._onBoardChanged.bind(this));
+    _attachKeyHandler() {
         document.body.addEventListener('keyup', this._onKeyUp.bind(this));
     }
 
@@ -72,8 +75,22 @@ class GamePanelView {
     }
 
     _changeToNextBlock() {
-        this.board.putBlock(this.controlBlock);
-        this._createControlBlock();
+        const currentBlock = this.controlBlock;
+        const newBlock = this._createControlBlock();
+
+        this.board.putBlock(currentBlock);
+        this._removeBlockListener(currentBlock);
+        this._attachBlockListener(newBlock);
+
+        this.controlBlock = newBlock;
+    }
+
+    _attachBlockListener(block) {
+        block.on('changed', this._onControlBlockChanged);
+    }
+
+    _removeBlockListener(block) {
+        block.removeListener('changed', this._onControlBlockChanged);
     }
 
     _createControlBlock() {
@@ -83,13 +100,12 @@ class GamePanelView {
         const entryX = Math.floor(this.board.colCount / 2) + x;
 
         newBlock.moveTo({ x: entryX, y: entryY, });
-        this.controlBlock = newBlock;
+        return newBlock;
     }
 
     _startTick() {
         this._timerForPlay = setInterval(() => {
             this._dropControlBlockDown();
-            this._render();
         }, this.tickInterval);
     }
 
@@ -113,7 +129,8 @@ class GamePanelView {
         this._changeToNextBlock();
     }
 
-    _onBoardChanged() {
+    @autobind
+    _onControlBlockChanged() {
         this._render();
     }
 
