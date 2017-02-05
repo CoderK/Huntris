@@ -61,8 +61,8 @@ describe('Board > ', () => {
             // then
             const actualRowCount = board.blockTable.length;
             const actualColCount = board.blockTable[0].length;
-            rowCount.should.be.eql(actualRowCount);
-            colCount.should.be.eql(actualColCount);
+            actualRowCount.should.be.eql(rowCount);
+            actualColCount.should.be.eql(colCount);
         });
 
         it('5 x 5 크기의 보드를 생성할 수 있다.', () => {
@@ -76,8 +76,8 @@ describe('Board > ', () => {
             // then
             const actualRowCount = board.blockTable.length;
             const actualColCount = board.blockTable[0].length;
-            rowCount.should.be.eql(actualRowCount);
-            colCount.should.be.eql(actualColCount);
+            actualRowCount.should.be.eql(rowCount);
+            actualColCount.should.be.eql(colCount);
         });
 
         it('보드를 처음 생성하면 모든 블럭이 비어있어야 한다.', () => {
