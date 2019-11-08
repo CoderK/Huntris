@@ -5,7 +5,6 @@ class App {
     constructor(props) {
         this.gamePanelView = new GamePanelView(props);
     }
-
     initialize() {
         this.gamePanelView.play();
     }
